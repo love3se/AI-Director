@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Director 작업 계획서</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #222536;
+      --border: #2e3250;
+      --accent: #5b7cf6;
+      --accent2: #7c3aed;
+      --text: #e2e8f0;
+      --text-muted: #8892b0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+      overflow: hidden;
+    }
+
+    .shell { display: flex; flex-direction: column; height: 100vh; }
+
+    /* ── Tab Bar ── */
+    .tab-bar {
+      display: flex;
+      align-items: stretch;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      padding: 0 20px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      position: relative;
+      padding: 14px 28px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.2px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      color: #fff;
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 12px;
+      right: 12px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 3px 3px 0 0;
+    }
+
+    .tab-icon {
+      font-size: 16px;
+    }
+
+    .tab-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(91,124,246,0.15);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .tab-btn.active .tab-badge {
+      background: rgba(91,124,246,0.25);
+      color: #93b4ff;
+    }
+
+    /* ── Iframe area ── */
+    .tab-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+      display: none;
+    }
+
+    .tab-frame.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="tab-bar">
+      <button class="tab-btn active" id="btn-tab1">
+        <span class="tab-icon">📋</span>
+        체크리스트 뷰
+        <span class="tab-badge">27</span>
+      </button>
+      <button class="tab-btn" id="btn-tab2">
+        <span class="tab-icon">🔀</span>
+        스윔레인 뷰
+        <span class="tab-badge">아트·테크·기획</span>
+      </button>
+    </div>
+
+    <iframe class="tab-frame active" id="frame1" src="checklist.html"></iframe>
+    <iframe class="tab-frame" id="frame2" src="swimlane.html"></iframe>
+  </div>
+
+  <script>
+    var btn1 = document.getElementById('btn-tab1');
+    var btn2 = document.getElementById('btn-tab2');
+    var frame1 = document.getElementById('frame1');
+    var frame2 = document.getElementById('frame2');
+
+    btn1.addEventListener('click', function() {
+      btn1.classList.add('active');
+      btn2.classList.remove('active');
+      frame1.classList.add('active');
+      frame2.classList.remove('active');
+    });
+
+    btn2.addEventListener('click', function() {
+      btn2.classList.add('active');
+      btn1.classList.remove('active');
+      frame2.classList.add('active');
+      frame1.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
